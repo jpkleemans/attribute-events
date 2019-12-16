@@ -1,0 +1,17 @@
+{
+  "name": "jpkleemans/attribute-events",
+  "description": "Extend your Eloquent model with attribute events.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jan-Paul Kleemans",
+      "email": "jpkleemans@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Kleemans\\AttributeEvents\\": "src/"
+    }
+  }
+}
