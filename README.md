@@ -1,5 +1,10 @@
 # Laravel Attribute Events
 
+## Install
+```bash
+composer require jpkleemans/attribute-events
+```
+
 ## Quick Example
 
 ```php
