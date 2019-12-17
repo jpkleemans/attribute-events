@@ -28,6 +28,17 @@ trait AttributeEvents
      */
     private $recordedEvents = [];
 
+    public static function bootAttributeEvents()
+    {
+        static::saving(function ($model) {
+            $model->recordAttributeEvents();
+        });
+
+        static::saved(function ($model) {
+            $model->fireRecordedEvents();
+        });
+    }
+
     private function recordEvent(string $event): void
     {
         $this->recordedEvents[] = $event;
@@ -45,19 +56,6 @@ trait AttributeEvents
         }
 
         $this->clearRecordedEvents();
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::saving(function ($model) {
-            $model->recordAttributeEvents();
-        });
-
-        static::saved(function ($model) {
-            $model->fireRecordedEvents();
-        });
     }
 
     private function recordAttributeEvents(): void
