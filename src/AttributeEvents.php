@@ -71,6 +71,10 @@ trait AttributeEvents
             $attribute = $exploded[0];
             $value = $exploded[1] ?? '*';
 
+            if (!isset($this->{$attribute})) {
+                continue;
+            }
+
             if (!$this->isDirty($attribute)) {
                 continue;
             }
