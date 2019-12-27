@@ -11,7 +11,7 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Kleemans\\AttributeEvents\\": "src/"
+      "Kleemans\\": "src/"
     }
   }
 }

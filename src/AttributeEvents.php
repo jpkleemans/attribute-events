@@ -1,6 +1,6 @@
 <?php
 
-namespace Kleemans\AttributeEvents;
+namespace Kleemans;
 
 trait AttributeEvents
 {
