@@ -9,7 +9,7 @@ composer require jpkleemans/attribute-events
 ```
 
 ## Usage
-Use the `Kleemans\AttributeEvents` trait in your model and add the attributes to the `$dispatchesEvents` property in the form of `'{attribute}:{value}' => '{event}'`:
+Use the `Kleemans\AttributeEvents` trait in your model and add the attributes to the `$dispatchesEvents` property:
 
 ```php
 class Order extends Model
@@ -20,18 +20,9 @@ class Order extends Model
         'created'         => OrderPlaced::class,
         'status:canceled' => OrderCanceled::class,
         'note:*'          => OrderNoteChanged::class,
-        'paid'            => OrderPaid::class,
     ];
 }
 ```
-
-There are three options to define the value of the attribute:
-- **Static value**: `attribute:value`  
-  Fire when `attribute` changes to `value`
-- **Wildcard value**: `attribute:*`  
-  Fire when `attribute` changes (to any value)
-- **Truthy value**: `attribute`  
-  Fire when `attribute` changes to a [truthy](https://www.php.net/manual/en/types.comparisons.php) value
 
 The attribute events will be dispatched after the model is saved. Each event receives the instance of the model through its constructor.
 
@@ -46,7 +37,7 @@ class Product extends Model
     use AttributeEvents;
 
     protected $dispatchesEvents = [
-        'low_stock' => ProductReachedLowStock::class,
+        'low_stock:true' => ProductReachedLowStock::class,
     ];
 
     public function getLowStockAttribute(): bool
