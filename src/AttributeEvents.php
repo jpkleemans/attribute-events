@@ -7,25 +7,6 @@ trait AttributeEvents
     /**
      * @var string[]
      */
-    private static $nativeEvents = [
-        'retrieved',
-        'creating',
-        'created',
-        'updating',
-        'updated',
-        'saving',
-        'saved',
-        'restoring',
-        'restored',
-        'replicating',
-        'deleting',
-        'deleted',
-        'forceDeleted',
-    ];
-
-    /**
-     * @var string[]
-     */
     private $recordedEvents = [];
 
     public static function bootAttributeEvents()
@@ -64,12 +45,14 @@ trait AttributeEvents
             return;
         }
 
-        $attributeEvents = array_diff_key($this->dispatchesEvents, self::$nativeEvents);
+        foreach ($this->dispatchesEvents as $change => $eventClass) {
+            if (strpos($change, ':') === false) {
+                continue; // Not an attribute event
+            }
 
-        foreach ($attributeEvents as $change => $eventClass) {
             $exploded = explode(':', $change);
             $attribute = $exploded[0];
-            $value = $exploded[1] ?? '*';
+            $value = $exploded[1];
 
             if (!isset($this->{$attribute})) {
                 continue;
