@@ -1,6 +1,6 @@
 {
   "name": "jpkleemans/attribute-events",
-  "description": "Extend your Eloquent model with attribute events.",
+  "description": "🔥 Fire events on attribute changes of your Eloquent model",
   "license": "MIT",
   "authors": [
     {
@@ -8,10 +8,22 @@
       "email": "jpkleemans@gmail.com"
     }
   ],
-  "require": {},
   "autoload": {
     "psr-4": {
       "Kleemans\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kleemans\\Test\\": "test/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "illuminate/database": "^7.3",
+    "illuminate/events": "^7.10"
+  },
+  "scripts": {
+    "test": "phpunit ./test"
   }
 }

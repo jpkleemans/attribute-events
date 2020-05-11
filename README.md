@@ -1,7 +1,6 @@
 # Laravel Attribute Events
 🔥 Fire events on attribute changes of your Eloquent model
 
-## Why?
 Eloquent models fire several handy events throughout their lifecycle, like `created` and `deleted`. However, there are usually many more interesting events that occur during a model's life. With this library you can add those, by mapping attribute changes of your model to meaningful events.
 
 ## Installation
@@ -9,7 +8,7 @@ Eloquent models fire several handy events throughout their lifecycle, like `crea
 composer require jpkleemans/attribute-events
 ```
 
-## Usage
+## How to use it
 Use the `Kleemans\AttributeEvents` trait in your model and add the attributes to the `$dispatchesEvents` property:
 
 ```php
