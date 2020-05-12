@@ -20,5 +20,6 @@ class Order extends Model
         'updated' => Events\OrderUpdated::class,
         'deleted' => Events\OrderDeleted::class,
         'note:*' => Events\OrderNoteUpdated::class,
+        'status:shipped' => Events\OrderShipped::class,
     ];
 }

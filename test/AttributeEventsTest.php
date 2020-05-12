@@ -18,6 +18,7 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderUpdated::class,
         Fake\Events\OrderDeleted::class,
         Fake\Events\OrderNoteUpdated::class,
+        Fake\Events\OrderShipped::class,
     ];
 
     public function setUp(): void
@@ -147,7 +148,13 @@ class AttributeEventsTest extends TestCase
     /** @test */
     public function it_dispatches_event_on_change_to_string_value()
     {
-        // TODO
+        $order = new Fake\Order();
+        $order->save();
+
+        $order->status = 'shipped';
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderShipped::class);
     }
 
     /** @test */
