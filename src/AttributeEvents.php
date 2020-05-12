@@ -45,6 +45,10 @@ trait AttributeEvents
             return;
         }
 
+        if (!$this->exists) {
+            return; // New instance, no attributes changed
+        }
+
         foreach ($this->dispatchesEvents as $change => $eventClass) {
             if (strpos($change, ':') === false) {
                 continue; // Not an attribute event
@@ -55,11 +59,11 @@ trait AttributeEvents
             $value = $exploded[1];
 
             if (!isset($this->{$attribute})) {
-                continue;
+                continue; // Attribute does not exist
             }
 
             if (!$this->isDirty($attribute)) {
-                continue;
+                continue; // Attribute has not been changed
             }
 
             if ($value === '*') {

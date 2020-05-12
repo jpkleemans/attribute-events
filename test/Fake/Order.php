@@ -12,11 +12,13 @@ class Order extends Model
 
     protected $attributes = [
         'status' => 'processing',
+        'note' => '',
     ];
 
     protected $dispatchesEvents = [
         'created' => Events\OrderPlaced::class,
         'updated' => Events\OrderUpdated::class,
         'deleted' => Events\OrderDeleted::class,
+        'note:*' => Events\OrderNoteUpdated::class,
     ];
 }

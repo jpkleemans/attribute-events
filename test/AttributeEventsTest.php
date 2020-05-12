@@ -13,10 +13,17 @@ class AttributeEventsTest extends TestCase
 {
     private $dispatcher;
 
+    private static $eventsToFake = [
+        Fake\Events\OrderPlaced::class,
+        Fake\Events\OrderUpdated::class,
+        Fake\Events\OrderDeleted::class,
+        Fake\Events\OrderNoteUpdated::class,
+    ];
+
     public function setUp(): void
     {
-        $this->initDatabase();
         $this->initEventDispatcher();
+        $this->initDatabase();
     }
 
     private function initDatabase()
@@ -29,21 +36,32 @@ class AttributeEventsTest extends TestCase
         $db->bootEloquent();
         $db->setAsGlobal();
 
-        $this->createTables();
+        $this->migrate();
+        $this->seed();
     }
 
-    private function createTables()
+    private function migrate()
     {
         DB::schema()->create('orders', function ($table) {
             $table->increments('id');
             $table->string('status');
+            $table->text('note');
             $table->timestamps();
         });
     }
 
+    private function seed()
+    {
+        DB::table('orders')->insert([
+            ['id' => 1, 'status' => 'processing', 'note' => '']
+        ]);
+    }
+
     private function initEventDispatcher()
     {
-        $this->dispatcher = new EventFake(new Dispatcher());
+        $this->dispatcher = new EventFake(new Dispatcher(), self::$eventsToFake);
+
+        Model::clearBootedModels();
         Model::setEventDispatcher($this->dispatcher);
     }
 
@@ -71,7 +89,59 @@ class AttributeEventsTest extends TestCase
     /** @test */
     public function it_dispatches_event_on_change()
     {
-        // TODO
+        $order = new Fake\Order();
+        $order->save();
+
+        $order->note = 'Please deliver before the weekend';
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_dispatches_event_on_change_after_find()
+    {
+        $order = Fake\Order::find(1);
+        $order->note = 'Please deliver before the weekend';
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_on_initial_value_of_attribute()
+    {
+        $order = new Fake\Order();
+        $order->note = 'Please handle with care';
+        $order->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_when_same_value()
+    {
+        $order = new Fake\Order();
+        $order->note = 'Please handle with care';
+        $order->save();
+
+        $order->note = 'Please handle with care';
+        $order->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_on_change_of_other_attribute()
+    {
+        $order = new Fake\Order();
+        $order->note = 'Please handle with care';
+        $order->save();
+
+        $order->status = 'shipped';
+        $order->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
     }
 
     /** @test */
