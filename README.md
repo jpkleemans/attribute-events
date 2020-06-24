@@ -1,6 +1,4 @@
 # Laravel Attribute Events
-🔥 Fire events on attribute changes of your Eloquent model
-
 Eloquent models fire several handy events throughout their lifecycle, like `created` and `deleted`. However, there are usually many more interesting events that occur during a model's life. With this library you can add those, by mapping attribute changes of your model to meaningful events.
 
 ## Installation
