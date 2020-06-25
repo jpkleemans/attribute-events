@@ -9,4 +9,4 @@ install:
   - composer install
 
 script:
-  - phpunit ./test
+  - composer run test
