@@ -233,34 +233,34 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderTaxCleared::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_accessor_change()
-    {
-        $order = new Fake\Order();
-        $order->shipping_address = '4073 Hamill Avenue US';
-        $order->save();
+    // /** @test */
+    // public function it_dispatches_event_on_accessor_change()
+    // {
+    //     $order = new Fake\Order();
+    //     $order->shipping_address = '4073 Hamill Avenue US';
+    //     $order->save();
 
-        $order->shipping_address = 'Kerkstraat 7 NL';
-        $order->save();
+    //     $order->shipping_address = 'Kerkstraat 7 NL';
+    //     $order->save();
 
-        $this->dispatcher->assertDispatched(Fake\Events\OrderShippingCountryChanged::class);
-    }
+    //     $this->dispatcher->assertDispatched(Fake\Events\OrderShippingCountryChanged::class);
+    // }
 
-    /** @test */
-    public function it_dispatches_event_on_accessor_change_to_specific_value()
-    {
-        $order = new Fake\Order();
-        $order->total = 10;
-        $order->save();
+    // /** @test */
+    // public function it_dispatches_event_on_accessor_change_to_specific_value()
+    // {
+    //     $order = new Fake\Order();
+    //     $order->total = 10;
+    //     $order->save();
 
-        $order->paid_amount = 5;
-        $order->save();
+    //     $order->paid_amount = 5;
+    //     $order->save();
 
-        $this->dispatcher->assertNotDispatched(Fake\Events\OrderPaid::class);
+    //     $this->dispatcher->assertNotDispatched(Fake\Events\OrderPaid::class);
 
-        $order->paid_amount = 10;
-        $order->save();
+    //     $order->paid_amount = 10;
+    //     $order->save();
 
-        $this->dispatcher->assertDispatched(Fake\Events\OrderPaid::class);
-    }
+    //     $this->dispatcher->assertDispatched(Fake\Events\OrderPaid::class);
+    // }
 }
