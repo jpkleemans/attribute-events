@@ -19,6 +19,11 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderDeleted::class,
         Fake\Events\OrderNoteUpdated::class,
         Fake\Events\OrderShipped::class,
+        Fake\Events\OrderMadeFree::class,
+        Fake\Events\OrderPaidHandlingFee::class,
+        Fake\Events\OrderTaxCleared::class,
+        Fake\Events\OrderShippingCountryChanged::class,
+        Fake\Events\OrderPaid::class,
     ];
 
     public function setUp(): void
@@ -58,7 +63,18 @@ class AttributeEventsTest extends TestCase
 
     private function seed()
     {
-        Fake\Order::create();
+        DB::table('orders')->insert([
+            [
+                'id' => 1,
+                'status' => 'processing',
+                'shipping_address' => '',
+                'note' => '',
+                'total' => 0.00,
+                'paid_amount' => 0.00,
+                'discount_percentage' => 0,
+                'tax_free' => false,
+            ]
+        ]);
     }
 
     private function initEventDispatcher()
@@ -146,6 +162,27 @@ class AttributeEventsTest extends TestCase
         $order->save();
 
         $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_dispatches_correct_number_of_times()
+    {
+        $order = new Fake\Order();
+        $order->note = 'Initial value';
+        $order->save();
+
+        $order->note = 'Change 1';
+        $order->save();
+
+        $order->note = 'Change 2';
+        $order->save();
+
+        $order->note = 'Change 2';
+        $order->save();
+
+        $this->dispatcher->assertDispatchedTimes(Fake\Events\OrderNoteUpdated::class, 2);
+        $this->dispatcher->assertDispatchedTimes(Fake\Events\OrderUpdated::class, 2);
+        $this->dispatcher->assertDispatchedTimes(Fake\Events\OrderPlaced::class, 1);
     }
 
     /** @test */

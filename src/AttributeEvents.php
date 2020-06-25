@@ -56,7 +56,7 @@ trait AttributeEvents
 
             $exploded = explode(':', $change);
             $attribute = $exploded[0];
-            $value = $exploded[1];
+            $expected = $exploded[1];
 
             if (!isset($this->{$attribute})) {
                 continue; // Attribute does not exist
@@ -66,13 +66,15 @@ trait AttributeEvents
                 continue; // Attribute has not been changed
             }
 
-            if ($value === '*') {
-                $this->recordEvent($change);
-
-                continue;
-            }
-
-            if ($this->{$attribute} === $value) {
+            $value = $this->{$attribute};
+            if (
+                $expected === '*'
+                || $expected === 'true' && $value === true
+                || $expected === 'false' && $value === false
+                || is_numeric($expected) && strpos($expected, '.') !== false && $value === floatval($expected) // float
+                || is_numeric($expected) && $value === intval($expected) // int
+                || $value === $expected
+            ) {
                 $this->recordEvent($change);
             }
         }
