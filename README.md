@@ -1,5 +1,9 @@
 # Laravel Attribute Events
 
+[![Build Status](https://travis-ci.org/jpkleemans/attribute-events.svg?branch=master)](https://travis-ci.org/jpkleemans/attribute-events)
+[![Latest Stable Version](https://poser.pugx.org/jpkleemans/attribute-events/v)](//packagist.org/packages/jpkleemans/attribute-events)
+[![License](https://poser.pugx.org/jpkleemans/attribute-events/license)](//packagist.org/packages/jpkleemans/attribute-events)
+
 ```php
 class Order extends Model
 {
