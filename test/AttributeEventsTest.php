@@ -46,16 +46,19 @@ class AttributeEventsTest extends TestCase
         DB::schema()->create('orders', function ($table) {
             $table->increments('id');
             $table->string('status');
+            $table->string('shipping_address');
             $table->text('note');
+            $table->decimal('total', 10, 2);
+            $table->decimal('paid_amount', 10, 2);
+            $table->integer('discount_percentage');
+            $table->boolean('tax_free');
             $table->timestamps();
         });
     }
 
     private function seed()
     {
-        DB::table('orders')->insert([
-            ['id' => 1, 'status' => 'processing', 'note' => '']
-        ]);
+        Fake\Order::create();
     }
 
     private function initEventDispatcher()
@@ -146,7 +149,7 @@ class AttributeEventsTest extends TestCase
     }
 
     /** @test */
-    public function it_dispatches_event_on_change_to_string_value()
+    public function it_dispatches_event_on_change_to_specific_string_value()
     {
         $order = new Fake\Order();
         $order->save();
@@ -158,26 +161,69 @@ class AttributeEventsTest extends TestCase
     }
 
     /** @test */
-    public function it_dispatches_event_on_change_to_int_value()
+    public function it_dispatches_event_on_change_to_specific_int_value()
     {
-        // TODO
+        $order = new Fake\Order();
+        $order->save();
+
+        $order->discount_percentage = 100;
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderMadeFree::class);
     }
 
     /** @test */
-    public function it_dispatches_event_on_change_to_boolean_value()
+    public function it_dispatches_event_on_change_to_specific_float_value()
     {
-        // TODO
+        $order = new Fake\Order();
+        $order->save();
+
+        $order->paid_amount = 2.99;
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderPaidHandlingFee::class);
+    }
+
+    /** @test */
+    public function it_dispatches_event_on_change_to_specific_boolean_value()
+    {
+        $order = new Fake\Order();
+        $order->save();
+
+        $order->tax_free = true;
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderTaxCleared::class);
     }
 
     /** @test */
     public function it_dispatches_event_on_accessor_change()
     {
-        // TODO
+        $order = new Fake\Order();
+        $order->shipping_address = '4073 Hamill Avenue US';
+        $order->save();
+
+        $order->shipping_address = 'Kerkstraat 7 NL';
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderShippingCountryChanged::class);
     }
 
     /** @test */
     public function it_dispatches_event_on_accessor_change_to_specific_value()
     {
-        // TODO
+        $order = new Fake\Order();
+        $order->total = 10;
+        $order->save();
+
+        $order->paid_amount = 5;
+        $order->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\OrderPaid::class);
+
+        $order->paid_amount = 10;
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderPaid::class);
     }
 }
