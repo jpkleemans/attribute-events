@@ -34,7 +34,7 @@ class AttributeEventsTest extends TestCase
 
     private function initDatabase()
     {
-        $db = new DB;
+        $db = new DB();
         $db->addConnection([
             'driver' => 'sqlite',
             'database' => ':memory:',
