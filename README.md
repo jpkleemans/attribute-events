@@ -1,6 +1,6 @@
 # Laravel Attribute Events
 
-[![Build Status](https://img.shields.io/travis/jpkleemans/attribute-events?style=flat-square)](https://travis-ci.org/jpkleemans/attribute-events)
+[![Build Status](https://img.shields.io/travis/jpkleemans/attribute-events?label=tests&style=flat-square)](https://travis-ci.org/jpkleemans/attribute-events)
 [![StyleCI](https://github.styleci.io/repos/228425178/shield?branch=master)](https://github.styleci.io/repos/228425178)
 [![Latest Stable Version](https://img.shields.io/packagist/v/jpkleemans/attribute-events?style=flat-square)](//packagist.org/packages/jpkleemans/attribute-events)
 [![License](https://img.shields.io/packagist/l/jpkleemans/attribute-events?style=flat-square)](//packagist.org/packages/jpkleemans/attribute-events)
