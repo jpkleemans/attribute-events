@@ -1,8 +1,9 @@
 # Laravel Attribute Events
 
-[![Build Status](https://travis-ci.org/jpkleemans/attribute-events.svg?branch=master)](https://travis-ci.org/jpkleemans/attribute-events)
-[![Latest Stable Version](https://poser.pugx.org/jpkleemans/attribute-events/v)](//packagist.org/packages/jpkleemans/attribute-events)
-[![License](https://poser.pugx.org/jpkleemans/attribute-events/license)](//packagist.org/packages/jpkleemans/attribute-events)
+[![Build Status](https://img.shields.io/travis/jpkleemans/attribute-events?style=flat-square)](https://travis-ci.org/jpkleemans/attribute-events)
+[![StyleCI](https://github.styleci.io/repos/228425178/shield?branch=master)](https://github.styleci.io/repos/228425178)
+[![Latest Stable Version](https://img.shields.io/packagist/v/jpkleemans/attribute-events?style=flat-square)](//packagist.org/packages/jpkleemans/attribute-events)
+[![License](https://img.shields.io/packagist/l/jpkleemans/attribute-events?style=flat-square)](//packagist.org/packages/jpkleemans/attribute-events)
 
 ```php
 class Order extends Model
