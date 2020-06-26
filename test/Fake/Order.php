@@ -4,7 +4,6 @@ namespace Kleemans\Test\Fake;
 
 use Illuminate\Database\Eloquent\Model;
 use Kleemans\AttributeEvents;
-use Kleemans\Test\Fake\Events;
 
 class Order extends Model
 {
