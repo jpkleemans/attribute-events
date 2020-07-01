@@ -11,7 +11,7 @@
 class Order extends Model
 {
     protected $dispatchesEvents = [
-        'status:canceled' => OrderCanceled::class,
+        'status:shipped' => OrderShipped::class,
         'note:*' => OrderNoteChanged::class,
     ];
 }
