@@ -4,42 +4,14 @@ namespace Kleemans;
 
 trait AttributeEvents
 {
-    /**
-     * @var string[]
-     */
-    private $recordedEvents = [];
-
     public static function bootAttributeEvents()
     {
-        static::updating(function ($model) {
-            $model->recordAttributeEvents();
-        });
-
-        static::saved(function ($model) {
-            $model->fireRecordedEvents();
+        static::updated(function ($model) {
+            $model->fireAttributeEvents();
         });
     }
 
-    private function recordEvent(string $event): void
-    {
-        $this->recordedEvents[] = $event;
-    }
-
-    private function clearRecordedEvents(): void
-    {
-        $this->recordedEvents = [];
-    }
-
-    private function fireRecordedEvents(): void
-    {
-        foreach ($this->recordedEvents as $event) {
-            $this->fireModelEvent($event, false);
-        }
-
-        $this->clearRecordedEvents();
-    }
-
-    private function recordAttributeEvents(): void
+    private function fireAttributeEvents(): void
     {
         if (!isset($this->dispatchesEvents)) {
             return;
@@ -71,7 +43,7 @@ trait AttributeEvents
                 || is_numeric($expected) && $value === intval($expected) // int
                 || $value === $expected
             ) {
-                $this->recordEvent($change);
+                $this->fireModelEvent($change, false);
             }
         }
     }
