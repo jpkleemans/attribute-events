@@ -11,7 +11,7 @@ trait AttributeEvents
 
     public static function bootAttributeEvents()
     {
-        static::saving(function ($model) {
+        static::updating(function ($model) {
             $model->recordAttributeEvents();
         });
 
@@ -43,10 +43,6 @@ trait AttributeEvents
     {
         if (!isset($this->dispatchesEvents)) {
             return;
-        }
-
-        if (!$this->exists) {
-            return; // New instance, no attributes changed
         }
 
         foreach ($this->dispatchesEvents as $change => $eventClass) {
