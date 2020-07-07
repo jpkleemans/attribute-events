@@ -39,7 +39,7 @@ class Order extends Model
         'is_paid:true' => Events\OrderPaid::class,
     ];
 
-    public function getShippingCountryAttribute(): bool
+    public function getShippingCountryAttribute(): string
     {
         return substr($this->shipping_address, -2); // Last 2 characters of the address contain the country code.
     }

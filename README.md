@@ -44,7 +44,7 @@ The attribute events will be dispatched after the model is saved. Each event rec
 
 > For more info on model events and the `$dispatchesEvents` property, visit the [Laravel Docs](https://laravel.com/docs/eloquent#events)
 
-## Accessors (WIP)
+## Accessors
 For more complex state changes, you can use attributes defined by an [accessor](https://laravel.com/docs/eloquent-mutators#defining-an-accessor):
 
 ```php
