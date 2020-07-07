@@ -74,7 +74,7 @@ trait AttributeEvents
         }
     }
 
-    private function isDirtyAccessor(string $attribute): bool
+    public function isDirtyAccessor(string $attribute): bool
     {
         if (!isset($this->originalAccessors[$attribute])) {
             return false; // Attribute does not have a original value saved
