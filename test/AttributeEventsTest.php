@@ -33,61 +33,6 @@ class AttributeEventsTest extends TestCase
         $this->initDatabase();
     }
 
-    private function initDatabase()
-    {
-        $db = new DB();
-        $db->addConnection([
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-        ]);
-        $db->bootEloquent();
-        $db->setAsGlobal();
-
-        $this->migrate();
-        $this->seed();
-    }
-
-    private function migrate()
-    {
-        DB::schema()->create('orders', function ($table) {
-            $table->increments('id');
-            $table->string('status');
-            $table->string('shipping_address');
-            $table->text('note');
-            $table->decimal('total', 10, 2);
-            $table->decimal('paid_amount', 10, 2);
-            $table->integer('discount_percentage');
-            $table->boolean('tax_free');
-            $table->string('payment_gateway');
-            $table->timestamps();
-        });
-    }
-
-    private function seed()
-    {
-        DB::table('orders')->insert([
-            [
-                'id' => 1,
-                'status' => 'processing',
-                'shipping_address' => '',
-                'note' => '',
-                'total' => 0.00,
-                'paid_amount' => 0.00,
-                'discount_percentage' => 0,
-                'tax_free' => false,
-                'payment_gateway' => 'credit_card',
-            ]
-        ]);
-    }
-
-    private function initEventDispatcher()
-    {
-        $this->dispatcher = new EventFake(new Dispatcher(), self::$eventsToFake);
-
-        Model::clearBootedModels();
-        Model::setEventDispatcher($this->dispatcher);
-    }
-
     /** @test */
     public function it_still_dispatches_native_events(): void
     {
@@ -281,5 +226,62 @@ class AttributeEventsTest extends TestCase
         $order->save();
 
         $this->dispatcher->assertDispatched(Fake\Events\OrderPaidWithCash::class);
+    }
+
+    // Setup methods
+
+    private function initEventDispatcher()
+    {
+        $this->dispatcher = new EventFake(new Dispatcher(), self::$eventsToFake);
+
+        Model::clearBootedModels();
+        Model::setEventDispatcher($this->dispatcher);
+    }
+
+    private function initDatabase()
+    {
+        $db = new DB();
+        $db->addConnection([
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+        ]);
+        $db->bootEloquent();
+        $db->setAsGlobal();
+
+        $this->migrate();
+        $this->seed();
+    }
+
+    private function migrate()
+    {
+        DB::schema()->create('orders', function ($table) {
+            $table->increments('id');
+            $table->string('status');
+            $table->string('shipping_address');
+            $table->text('note');
+            $table->decimal('total', 10, 2);
+            $table->decimal('paid_amount', 10, 2);
+            $table->integer('discount_percentage');
+            $table->boolean('tax_free');
+            $table->string('payment_gateway');
+            $table->timestamps();
+        });
+    }
+
+    private function seed()
+    {
+        DB::table('orders')->insert([
+            [
+                'id' => 1,
+                'status' => 'processing',
+                'shipping_address' => '',
+                'note' => '',
+                'total' => 0.00,
+                'paid_amount' => 0.00,
+                'discount_percentage' => 0,
+                'tax_free' => false,
+                'payment_gateway' => 'credit_card',
+            ]
+        ]);
     }
 }
