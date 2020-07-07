@@ -1,8 +1,12 @@
-<p align="center"><img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg" alt="Laravel Attribute Events"></p>
+<p align="center">
+<a href="https://attribute.events/">
+<img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg" alt="Laravel Attribute Events">
+</a>
+</p>
 
 <p align="center">
-<a href="https://travis-ci.org/jpkleemans/attribute-events"><img src="https://img.shields.io/travis/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
-<a href="https://github.styleci.io/repos/228425178"><img src="https://github.styleci.io/repos/228425178/shield?branch=master" alt="StyleCI"></a>
+<a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
+<a href="https://github.styleci.io/repos/228425178" target="_blank"><img src="https://github.styleci.io/repos/228425178/shield?branch=master" alt="StyleCI"></a>
 <a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/v/jpkleemans/attribute-events?label=stable&style=flat-square" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/l/jpkleemans/attribute-events?style=flat-square" alt="License"></a>
 </p>
