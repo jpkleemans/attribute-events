@@ -1,0 +1,12 @@
+parameters:
+    sets:
+        - code-quality
+        - coding-style
+        - dead-code
+        - early-return
+        - order
+        - solid
+        - type-declaration
+    exclude_rectors:
+        - Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector
+        - Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector

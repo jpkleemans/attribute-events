@@ -47,8 +47,8 @@ trait AttributeEvents
                 $expected === '*'
                 || $expected === 'true' && $value === true
                 || $expected === 'false' && $value === false
-                || is_numeric($expected) && strpos($expected, '.') !== false && $value === floatval($expected) // float
-                || is_numeric($expected) && $value === intval($expected) // int
+                || is_numeric($expected) && strpos($expected, '.') !== false && $value === (float) $expected // float
+                || is_numeric($expected) && $value === (int) $expected // int
                 || $value === $expected
             ) {
                 $this->fireModelEvent($change, false);
@@ -58,7 +58,7 @@ trait AttributeEvents
 
     private function syncOriginalAccessors(): void
     {
-        foreach ($this->getAttributeEvents()  as $change => $event) {
+        foreach ($this->getAttributeEvents() as $change => $event) {
             [$attribute] = explode(':', $change);
 
             if (!$this->hasGetMutator($attribute)) {
@@ -86,6 +86,9 @@ trait AttributeEvents
         return $originalValue !== $currentValue;
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getAttributeEvents(): iterable
     {
         foreach ($this->dispatchesEvents as $change => $event) {
