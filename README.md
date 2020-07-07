@@ -40,7 +40,7 @@ class Order extends Model
 }
 ```
 
-The attribute events will be dispatched after the model is saved. Each event receives the instance of the model through its constructor.
+The attribute events will be dispatched after the updated model is saved. Each event receives the instance of the model through its constructor.
 
 > For more info on model events and the `$dispatchesEvents` property, visit the [Laravel Docs](https://laravel.com/docs/eloquent#events)
 
