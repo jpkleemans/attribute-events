@@ -27,14 +27,8 @@ trait AttributeEvents
             return;
         }
 
-        foreach ($this->dispatchesEvents as $change => $eventClass) {
-            if (strpos($change, ':') === false) {
-                continue; // Not an attribute event
-            }
-
-            $exploded = explode(':', $change);
-            $attribute = $exploded[0];
-            $expected = $exploded[1];
+        foreach ($this->getAttributeEvents()  as $change => $event) {
+            [$attribute, $expected] = explode(':', $change);
 
             if (!isset($this->{$attribute})) {
                 continue; // Attribute does not exist
@@ -64,13 +58,8 @@ trait AttributeEvents
 
     private function syncOriginalAccessors(): void
     {
-        foreach ($this->dispatchesEvents as $change => $eventClass) {
-            if (strpos($change, ':') === false) {
-                continue; // Not an attribute event
-            }
-
-            $exploded = explode(':', $change);
-            $attribute = $exploded[0];
+        foreach ($this->getAttributeEvents()  as $change => $event) {
+            [$attribute] = explode(':', $change);
 
             if (!$this->hasGetMutator($attribute)) {
                 continue; // Attribute does not have accessor
@@ -81,7 +70,6 @@ trait AttributeEvents
             }
 
             $value = $this->{$attribute};
-
             $this->originalAccessors[$attribute] = $value;
         }
     }
@@ -96,5 +84,16 @@ trait AttributeEvents
         $currentValue = $this->{$attribute};
 
         return $originalValue !== $currentValue;
+    }
+
+    private function getAttributeEvents(): iterable
+    {
+        foreach ($this->dispatchesEvents as $change => $event) {
+            if (strpos($change, ':') === false) {
+                continue; // Not an attribute event
+            }
+
+            yield $change => $event;
+        }
     }
 }
