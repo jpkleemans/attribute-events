@@ -24,6 +24,7 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderTaxCleared::class,
         Fake\Events\OrderShippingCountryChanged::class,
         Fake\Events\OrderPaid::class,
+        Fake\Events\OrderPaidWithCash::class,
     ];
 
     public function setUp(): void
@@ -57,6 +58,7 @@ class AttributeEventsTest extends TestCase
             $table->decimal('paid_amount', 10, 2);
             $table->integer('discount_percentage');
             $table->boolean('tax_free');
+            $table->string('payment_gateway');
             $table->timestamps();
         });
     }
@@ -73,6 +75,7 @@ class AttributeEventsTest extends TestCase
                 'paid_amount' => 0.00,
                 'discount_percentage' => 0,
                 'tax_free' => false,
+                'payment_gateway' => 'credit_card',
             ]
         ]);
     }
@@ -268,5 +271,15 @@ class AttributeEventsTest extends TestCase
         $order->save();
 
         $this->dispatcher->assertDispatched(Fake\Events\OrderPaid::class);
+    }
+
+    /** @test */
+    public function it_dispatches_event_on_change_of_accessor_for_existing_attribute()
+    {
+        $order = Fake\Order::find(1);
+        $order->payment_gateway = 'direct';
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderPaidWithCash::class);
     }
 }

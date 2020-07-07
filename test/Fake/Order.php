@@ -17,6 +17,7 @@ class Order extends Model
         'paid_amount' => 0.00,
         'discount_percentage' => 0,
         'tax_free' => false,
+        'payment_gateway' => 'credit_card'
     ];
 
     protected $casts = [
@@ -37,6 +38,7 @@ class Order extends Model
         'tax_free:true' => Events\OrderTaxCleared::class,
         'shipping_country:*' => Events\OrderShippingCountryChanged::class,
         'is_paid:true' => Events\OrderPaid::class,
+        'payment_gateway:cash' => Events\OrderPaidWithCash::class,
     ];
 
     public function getShippingCountryAttribute(): string
@@ -47,5 +49,15 @@ class Order extends Model
     public function getIsPaidAttribute(): bool
     {
         return $this->paid_amount >= $this->total;
+    }
+
+    public function getPaymentGatewayAttribute($value): string
+    {
+        $cashGateways = ['cash', 'direct', 'invoice'];
+        if (in_array($value, $cashGateways)) {
+            return 'cash';
+        }
+
+        return $value;
     }
 }

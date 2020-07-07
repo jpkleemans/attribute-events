@@ -62,3 +62,5 @@ class Product extends Model
     }
 }
 ```
+
+> For more info on accessors, visit the [Laravel Docs](https://laravel.com/docs/eloquent-mutators#defining-an-accessor)
