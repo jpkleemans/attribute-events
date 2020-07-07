@@ -26,6 +26,6 @@
   },
   "scripts": {
     "test": "phpunit ./test",
-    "rector": "rector process src --config rector.yaml"
+    "rector": "rector process ./src"
   }
 }
