@@ -40,11 +40,11 @@ class Order extends Model
 }
 ```
 
-The attribute events will be dispatched after the model is saved. Each event receives the instance of the model through its constructor.
+The attribute events will be dispatched after the updated model is saved. Each event receives the instance of the model through its constructor.
 
 > For more info on model events and the `$dispatchesEvents` property, visit the [Laravel Docs](https://laravel.com/docs/eloquent#events)
 
-## Accessors (WIP)
+## Accessors
 For more complex state changes, you can use attributes defined by an [accessor](https://laravel.com/docs/eloquent-mutators#defining-an-accessor):
 
 ```php
@@ -62,3 +62,5 @@ class Product extends Model
     }
 }
 ```
+
+> For more info on accessors, visit the [Laravel Docs](https://laravel.com/docs/eloquent-mutators#defining-an-accessor)
