@@ -21,7 +21,7 @@ class Order extends Model
 }
 ```
 
-Eloquent models fire several handy events throughout their lifecycle, like `created` and `deleted`. However, there are usually many more interesting events that occur during a model's life. With this library you can add those, by mapping attribute changes to your own meaningful events.
+Eloquent models fire several handy events throughout their lifecycle, like `created` and `deleted`. However, there are usually many more interesting events that occur during a model's life. With this library you can capture those, by mapping attribute changes to your own business meaningful events.
 
 ## Installation
 ```bash
