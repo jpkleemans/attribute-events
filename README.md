@@ -71,7 +71,7 @@ class Product extends Model
 
 ## Sponsors
 
-<a href="https://www.nexxtmove.nl/">
+<a href="https://www.nexxtmove.nl/" target="_blank">
   <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/nexxtmove-logo.svg" alt="Nexxtmove Logo" width="200">
 </a>
 
