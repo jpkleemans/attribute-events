@@ -1,6 +1,15 @@
 {
   "name": "jpkleemans/attribute-events",
   "description": "🔥 Fire events on attribute changes of your Eloquent model",
+  "homepage": "https://attribute.events/",
+  "keywords": [
+    "laravel",
+    "eloquent",
+    "events",
+    "attributes",
+    "domain-events",
+    "model-events"
+  ],
   "license": "MIT",
   "authors": [
     {
