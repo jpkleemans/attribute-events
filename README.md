@@ -1,14 +1,14 @@
 <p align="center">
-<a href="https://attribute.events/">
-<img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg" alt="Laravel Attribute Events">
-</a>
+  <a href="https://attribute.events/">
+    <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg" alt="Laravel Attribute Events">
+  </a>
 </p>
 
 <p align="center">
-<a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
-<a href="https://github.styleci.io/repos/228425178" target="_blank"><img src="https://github.styleci.io/repos/228425178/shield?branch=master" alt="StyleCI"></a>
-<a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/v/jpkleemans/attribute-events?label=stable&style=flat-square" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/l/jpkleemans/attribute-events?style=flat-square" alt="License"></a>
+  <a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
+  <a href="https://github.styleci.io/repos/228425178" target="_blank"><img src="https://github.styleci.io/repos/228425178/shield?branch=master" alt="StyleCI"></a>
+  <a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/v/jpkleemans/attribute-events?label=stable&style=flat-square" alt="Latest Stable Version"></a>
+  <a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/l/jpkleemans/attribute-events?style=flat-square" alt="License"></a>
 </p>
 
 ```php
@@ -68,3 +68,15 @@ class Product extends Model
 ```
 
 > For more info on accessors, visit the <a href="https://laravel.com/docs/eloquent-mutators#defining-an-accessor" target="_blank">Laravel Docs</a>
+
+## Sponsors
+
+<a href="https://www.nexxtmove.nl/" target="_blank">
+  <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/nexxtmove-logo.svg" alt="Nexxtmove Logo" width="200">
+</a>
+
+Thanks to <a href="https://www.nexxtmove.nl/" target="_blank">Nexxtmove</a> for sponsoring the development of this project.
+
+## License
+
+Code released under the [MIT License](https://github.com/jpkleemans/attribute-events/blob/master/LICENSE).
