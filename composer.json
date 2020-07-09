@@ -7,8 +7,9 @@
     "eloquent",
     "events",
     "attributes",
-    "domain-events",
-    "model-events"
+    "domain events",
+    "model events",
+    "ddd"
   ],
   "license": "MIT",
   "authors": [
