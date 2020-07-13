@@ -19,6 +19,7 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderDeleted::class,
         Fake\Events\OrderNoteUpdated::class,
         Fake\Events\OrderShipped::class,
+        Fake\Events\OrderReturned::class,
         Fake\Events\OrderMadeFree::class,
         Fake\Events\OrderPaidHandlingFee::class,
         Fake\Events\OrderTaxCleared::class,
@@ -179,6 +180,18 @@ class AttributeEventsTest extends TestCase
         $order->save();
 
         $this->dispatcher->assertDispatched(Fake\Events\OrderTaxCleared::class);
+    }
+
+    /** @test */
+    public function it_respects_withoutEvents()
+    {
+        Fake\Order::withoutEvents(function () {
+            $order = Fake\Order::find(1);
+            $order->status = 'returned';
+            $order->save();
+
+            $this->dispatcher->assertNotDispatched(Fake\Events\OrderReturned::class);
+        });
     }
 
     /** @test */

@@ -33,6 +33,7 @@ class Order extends Model
         'deleted' => Events\OrderDeleted::class,
         'note:*' => Events\OrderNoteUpdated::class,
         'status:shipped' => Events\OrderShipped::class,
+        'status:returned' => Events\OrderReturned::class,
         'discount_percentage:100' => Events\OrderMadeFree::class,
         'paid_amount:2.99' => Events\OrderPaidHandlingFee::class,
         'tax_free:true' => Events\OrderTaxCleared::class,
