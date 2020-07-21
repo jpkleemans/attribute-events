@@ -19,6 +19,7 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderDeleted::class,
         Fake\Events\OrderNoteUpdated::class,
         Fake\Events\OrderShipped::class,
+        Fake\Events\OrderCanceled::class,
         Fake\Events\OrderReturned::class,
         Fake\Events\OrderMadeFree::class,
         Fake\Events\OrderPaidHandlingFee::class,
@@ -111,6 +112,18 @@ class AttributeEventsTest extends TestCase
         $order->save();
 
         $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_on_initial_save_of_replication()
+    {
+        $order = Fake\Order::find(1);
+
+        $orderCopy = $order->replicate();
+        $orderCopy->status = 'canceled';
+        $orderCopy->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\OrderCanceled::class);
     }
 
     /** @test */
