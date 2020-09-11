@@ -46,6 +46,14 @@ class Order extends Model
 
 The attribute events will be dispatched after the updated model is saved. Each event receives the instance of the model through its constructor.
 
+Now you can subscribe to the events via the `EventServiceProvider` `$listen` array, or manually with Closure based listeners:
+
+```php
+Event::listen(function (OrderCanceled $event) {
+    // Restock Inventory
+});
+```
+
 > For more info on model events and the `$dispatchesEvents` property, visit the <a href="https://laravel.com/docs/eloquent#events" target="_blank">Laravel Docs</a>
 
 ## Accessors
