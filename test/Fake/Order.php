@@ -20,6 +20,8 @@ class Order extends Model
         'payment_gateway' => 'credit_card'
     ];
 
+    protected $guarded = [];
+
     protected $casts = [
         'total' => 'float',
         'paid_amount' => 'float',

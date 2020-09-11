@@ -72,10 +72,39 @@ class AttributeEventsTest extends TestCase
     public function it_dispatches_event_on_change_after_find()
     {
         $order = Fake\Order::find(1);
-        $order->note = 'Please deliver before the weekend';
+        $order->note = 'Please deliver to neighbour';
         $order->save();
 
         $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
+    }
+
+    /** @test */
+    public function it_dispatches_multiple_events()
+    {
+        $order = new Fake\Order();
+        $order->save();
+
+        $order->note = 'Please deliver before the weekend';
+        $order->status = 'shipped';
+        $order->tax_free = true;
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderShipped::class);
+        $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
+        $this->dispatcher->assertDispatched(Fake\Events\OrderTaxCleared::class);
+    }
+
+    /** @test */
+    public function it_works_with_update_method()
+    {
+        $order = Fake\Order::find(1);
+        $order->update([
+            'note' => 'Handle with care',
+            'status' => 'canceled',
+        ]);
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
+        $this->dispatcher->assertDispatched(Fake\Events\OrderCanceled::class);
     }
 
     /** @test */
