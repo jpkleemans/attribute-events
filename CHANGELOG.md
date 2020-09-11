@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - All the code :) This is the initial release.
 
-[unreleased]: https://github.com/jpkleemans/attribute-events/compare/1.0.2...HEAD
+[unreleased]: https://github.com/jpkleemans/attribute-events/compare/1.0.3...HEAD
 [1.0.3]: https://github.com/jpkleemans/attribute-events/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/jpkleemans/attribute-events/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/jpkleemans/attribute-events/compare/1.0.0...1.0.1
