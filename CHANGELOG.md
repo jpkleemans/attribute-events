@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tests for multiple events & update method.
 - Changelog
 
+### Changed
+- Updated dev dependencies to Laravel 8.
+
 ## [1.0.2] - 2020-07-21
 ### Added
 - Tests for replicate & withoutEvents methods.
