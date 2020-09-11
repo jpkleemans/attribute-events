@@ -52,8 +52,17 @@ Now you can subscribe to the events via the `EventServiceProvider` `$listen` arr
 
 ```php
 Event::listen(function (OrderCanceled $event) {
-    // Restock Inventory
+    // Restock inventory
 });
+```
+
+Or show realtime updates to your users using Laravel's [broadcasting feature](https://laravel.com/docs/broadcasting):
+
+```js
+Echo.channel('orders')
+    .listen('OrderShipped', (event) => {
+        // Display a notification
+    })
 ```
 
 ## Accessors
