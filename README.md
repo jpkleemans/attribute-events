@@ -57,7 +57,7 @@ Event::listen(function (OrderCanceled $event) {
 });
 ```
 
-Or push realtime updates to your users using Laravel's <a href="https://laravel.com/docs/broadcasting" target="_blank">broadcasting feature</a>:
+Or push realtime updates to your users, using Laravel's <a href="https://laravel.com/docs/broadcasting" target="_blank">broadcasting</a> feature:
 
 ```js
 Echo.channel('orders')
