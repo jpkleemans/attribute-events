@@ -23,10 +23,6 @@ trait AttributeEvents
 
     private function fireAttributeEvents(): void
     {
-        if (!isset($this->dispatchesEvents)) {
-            return;
-        }
-
         foreach ($this->getAttributeEvents()  as $change => $event) {
             [$attribute, $expected] = explode(':', $change);
 
