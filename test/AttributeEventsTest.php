@@ -2,12 +2,11 @@
 
 namespace Kleemans\Test;
 
+use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Testing\Fakes\EventFake;
-use Kleemans\Test\Fake;
-use Illuminate\Database\Capsule\Manager as DB;
+use PHPUnit\Framework\TestCase;
 
 class AttributeEventsTest extends TestCase
 {
@@ -433,7 +432,7 @@ class AttributeEventsTest extends TestCase
                 'tax_free' => false,
                 'payment_gateway' => 'credit_card',
                 'meta' => '{}',
-            ]
+            ],
         ]);
     }
 }
