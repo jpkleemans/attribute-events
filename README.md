@@ -66,6 +66,15 @@ Echo.channel('orders')
     })
 ```
 
+## JSON attributes
+For attributes stored as JSON, you can use the `->` operator:
+
+```php
+protected $dispatchesEvents = [
+    'payment->status:completed' => PaymentCompleted::class,
+];
+```
+
 ## Accessors
 For more complex state changes, you can use attributes defined by an <a href="https://laravel.com/docs/eloquent-mutators#defining-an-accessor" target="_blank">accessor</a>:
 
