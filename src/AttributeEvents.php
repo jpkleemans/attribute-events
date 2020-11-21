@@ -2,6 +2,8 @@
 
 namespace Kleemans;
 
+use Illuminate\Support\Str;
+
 trait AttributeEvents
 {
     private $originalAccessors = [];
@@ -26,24 +28,25 @@ trait AttributeEvents
         foreach ($this->getAttributeEvents()  as $change => $event) {
             [$attribute, $expected] = explode(':', $change);
 
-            if (!isset($this->{$attribute})) {
-                continue; // Attribute does not exist
-            }
+            $value = $this->getAttribute($attribute);
 
+            // Accessor
             if ($this->hasGetMutator($attribute)) {
                 if (!$this->isDirtyAccessor($attribute)) {
-                    continue; // Accessor has not been changed
+                    continue; // Not changed
                 }
-            } elseif (!$this->isDirty($attribute)) {
-                continue; // Attribute has not been changed
             }
 
-            $value = $this->{$attribute};
+            // Regular attribute
+            elseif (!$this->isDirty($attribute)) {
+                continue; // Not changed
+            }
+
             if (
                 $expected === '*'
                 || $expected === 'true' && $value === true
                 || $expected === 'false' && $value === false
-                || is_numeric($expected) && strpos($expected, '.') !== false && $value === (float) $expected // float
+                || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
                 || is_numeric($expected) && $value === (int) $expected // int
                 || $value === $expected
             ) {
@@ -61,11 +64,11 @@ trait AttributeEvents
                 continue; // Attribute does not have accessor
             }
 
-            if (!isset($this->{$attribute})) {
+            $value = $this->getAttribute($attribute);
+            if ($value === null) {
                 continue; // Attribute does not exist
             }
 
-            $value = $this->{$attribute};
             $this->originalAccessors[$attribute] = $value;
         }
     }
@@ -77,7 +80,7 @@ trait AttributeEvents
         }
 
         $originalValue = $this->originalAccessors[$attribute];
-        $currentValue = $this->{$attribute};
+        $currentValue = $this->getAttribute($attribute);
 
         return $originalValue !== $currentValue;
     }
@@ -88,7 +91,7 @@ trait AttributeEvents
     private function getAttributeEvents(): iterable
     {
         foreach ($this->dispatchesEvents as $change => $event) {
-            if (strpos($change, ':') === false) {
+            if (!Str::contains($change, ':')) {
                 continue; // Not an attribute event
             }
 

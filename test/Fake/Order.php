@@ -17,7 +17,7 @@ class Order extends Model
         'paid_amount' => 0.00,
         'discount_percentage' => 0,
         'tax_free' => false,
-        'payment_gateway' => 'credit_card'
+        'payment_gateway' => 'credit_card',
     ];
 
     protected $guarded = [];
@@ -37,6 +37,7 @@ class Order extends Model
         'status:shipped' => Events\OrderShipped::class,
         'status:canceled' => Events\OrderCanceled::class,
         'status:returned' => Events\OrderReturned::class,
+        'non_existing:should_do_nothing' => Events\OrderUpdated::class,
         'discount_percentage:100' => Events\OrderMadeFree::class,
         'paid_amount:2.99' => Events\OrderPaidHandlingFee::class,
         'tax_free:true' => Events\OrderTaxCleared::class,
