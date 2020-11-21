@@ -2,7 +2,8 @@
 
 namespace Kleemans;
 
-use Illuminate\Support\{Arr, Str};
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 trait AttributeEvents
 {
