@@ -353,7 +353,7 @@ class AttributeEventsTest extends TestCase
         $order = new Fake\Order();
         $order->meta = [
             'gift_wrapping' => true,
-            'paypal_status' => 'pending',
+            'paypal_status' => 'denied',
         ];
         $order->save();
 
