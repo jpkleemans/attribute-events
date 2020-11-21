@@ -2,7 +2,7 @@
 
 namespace Kleemans;
 
-use Illuminate\Support\Str;
+use Illuminate\Support\{Arr, Str};
 
 trait AttributeEvents
 {
@@ -35,6 +35,19 @@ trait AttributeEvents
                 if (!$this->isDirtyAccessor($attribute)) {
                     continue; // Not changed
                 }
+            }
+
+            // JSON attribute
+            elseif (Str::contains($attribute, '->')) {
+                [$attribute, $path] = explode('->', $attribute, 2);
+                $path = str_replace('->', '.', $path);
+
+                if (!$this->isDirtyNested($attribute, $path)) {
+                    continue; // Not changed
+                }
+
+                $value = $this->getAttribute($attribute);
+                $value = Arr::get($value, $path);
             }
 
             // Regular attribute
@@ -81,6 +94,21 @@ trait AttributeEvents
 
         $originalValue = $this->originalAccessors[$attribute];
         $currentValue = $this->getAttribute($attribute);
+
+        return $originalValue !== $currentValue;
+    }
+
+    public function isDirtyNested(string $attribute, string $path): bool
+    {
+        $original = $this->getOriginal($attribute);
+        $originalValue = Arr::get($original, $path);
+
+        $current = $this->getAttribute($attribute);
+        $currentValue = Arr::get($current, $path);
+
+        if ($currentValue === null) {
+            return false;
+        }
 
         return $originalValue !== $currentValue;
     }

@@ -18,6 +18,7 @@ class Order extends Model
         'discount_percentage' => 0,
         'tax_free' => false,
         'payment_gateway' => 'credit_card',
+        'meta' => '{}',
     ];
 
     protected $guarded = [];
@@ -27,6 +28,7 @@ class Order extends Model
         'paid_amount' => 'float',
         'discount_percentage' => 'integer',
         'tax_free' => 'boolean',
+        'meta' => 'array',
     ];
 
     protected $dispatchesEvents = [
@@ -44,6 +46,9 @@ class Order extends Model
         'shipping_country:*' => Events\OrderShippingCountryChanged::class,
         'is_paid:true' => Events\OrderPaid::class,
         'payment_gateway:cash' => Events\OrderPaidWithCash::class,
+        'meta:*' => Events\OrderMetaUpdated::class,
+        'meta->paypal_status:denied' => Events\PaypalPaymentDenied::class,
+        'meta->invoice->downloaded:true' => Events\InvoiceDownloaded::class,
     ];
 
     public function getShippingCountryAttribute(): string
