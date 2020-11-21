@@ -100,11 +100,8 @@ trait AttributeEvents
 
     public function isDirtyNested(string $attribute, string $path): bool
     {
-        $original = $this->getOriginal($attribute);
-        $originalValue = Arr::get($original, $path);
-
-        $current = $this->getAttribute($attribute);
-        $currentValue = Arr::get($current, $path);
+        $originalValue = Arr::get($this->getOriginal($attribute), $path);
+        $currentValue = Arr::get($this->getAttribute($attribute), $path);
 
         if ($currentValue === null) {
             return false;
