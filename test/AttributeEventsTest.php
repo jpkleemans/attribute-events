@@ -27,6 +27,9 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderShippingCountryChanged::class,
         Fake\Events\OrderPaid::class,
         Fake\Events\OrderPaidWithCash::class,
+        Fake\Events\OrderMetaUpdated::class,
+        Fake\Events\PaypalPaymentDenied::class,
+        Fake\Events\InvoiceDownloaded::class,
     ];
 
     public function setUp(): void
@@ -236,6 +239,8 @@ class AttributeEventsTest extends TestCase
         });
     }
 
+    // Accessors
+
     /** @test */
     public function it_dispatches_event_on_accessor_change()
     {
@@ -283,6 +288,96 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderPaidWithCash::class);
     }
 
+    // JSON attributes
+
+    /** @test */
+    public function it_dispatches_event_when_updating_json_attribute()
+    {
+        $order = new Fake\Order();
+        $order->meta = ['gift_wrapping' => true];
+        $order->save();
+
+        $order->meta = ['gift_wrapping' => false];
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderMetaUpdated::class);
+    }
+
+    /** @test */
+    public function it_dispatches_event_when_updating_json_field()
+    {
+        $order = new Fake\Order();
+        $order->meta = ['paypal_status' => 'pending'];
+        $order->save();
+
+        $meta = $order->meta;
+        $meta['paypal_status'] = 'denied';
+        $order->meta = $meta;
+
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\PaypalPaymentDenied::class);
+    }
+
+    /** @test */
+    public function it_works_with_json_changes_through_update_method()
+    {
+        $order = new Fake\Order();
+        $order->meta = ['paypal_status' => 'pending'];
+        $order->save();
+
+        $order->update(['meta->paypal_status' => 'denied']);
+
+        $this->dispatcher->assertDispatched(Fake\Events\PaypalPaymentDenied::class);
+    }
+
+    /** @test */
+    public function it_dispatches_event_when_adding_json_field()
+    {
+        $order = new Fake\Order();
+        $order->meta = ['gift_wrapping' => true];
+        $order->save();
+
+        $meta = $order->meta;
+        $meta['paypal_status'] = 'denied';
+        $order->meta = $meta;
+
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\PaypalPaymentDenied::class);
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_on_initial_value_of_json_attribute()
+    {
+        $order = new Fake\Order();
+        $order->meta = [
+            'gift_wrapping' => true,
+            'paypal_status' => 'denied',
+        ];
+        $order->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\OrderMetaUpdated::class);
+        $this->dispatcher->assertNotDispatched(Fake\Events\PaypalPaymentDenied::class);
+    }
+
+    /** @test */
+    public function it_works_with_nested_json_fields()
+    {
+        $order = new Fake\Order();
+        $order->meta = ['invoice' => ['downloaded' => false]];
+        $order->save();
+
+        $meta = $order->meta;
+        $meta['invoice']['downloaded'] = true;
+        $order->meta = $meta;
+
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderMetaUpdated::class);
+        $this->dispatcher->assertDispatched(Fake\Events\InvoiceDownloaded::class);
+    }
+
     // Setup methods
 
     private function initEventDispatcher()
@@ -319,6 +414,7 @@ class AttributeEventsTest extends TestCase
             $table->integer('discount_percentage');
             $table->boolean('tax_free');
             $table->string('payment_gateway');
+            $table->json('meta');
             $table->timestamps();
         });
     }
@@ -336,6 +432,7 @@ class AttributeEventsTest extends TestCase
                 'discount_percentage' => 0,
                 'tax_free' => false,
                 'payment_gateway' => 'credit_card',
+                'meta' => '{}',
             ]
         ]);
     }
