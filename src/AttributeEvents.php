@@ -47,8 +47,7 @@ trait AttributeEvents
                     continue; // Not changed
                 }
 
-                $value = $this->getAttribute($attribute);
-                $value = Arr::get($value, $path);
+                $value = Arr::get($this->getAttribute($attribute), $path);
             }
 
             // Regular attribute
