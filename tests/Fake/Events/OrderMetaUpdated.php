@@ -1,8 +1,8 @@
 <?php
 
-namespace Kleemans\Test\Fake\Events;
+namespace Kleemans\Tests\Fake\Events;
 
-use Kleemans\Test\Fake\Order;
+use Kleemans\Tests\Fake\Order;
 
 class OrderMetaUpdated
 {

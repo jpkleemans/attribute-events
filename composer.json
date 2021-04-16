@@ -25,7 +25,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Kleemans\\Test\\": "test/"
+      "Kleemans\\Tests\\": "tests/"
     }
   },
   "require-dev": {
@@ -35,7 +35,7 @@
     "friendsofphp/php-cs-fixer": "^2.0"
   },
   "scripts": {
-    "test": "phpunit ./test",
+    "tests": "phpunit",
     "lint": "php-cs-fixer fix --config=.php_cs --using-cache=no"
   }
 }

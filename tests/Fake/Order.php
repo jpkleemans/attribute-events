@@ -1,6 +1,6 @@
 <?php
 
-namespace Kleemans\Test\Fake;
+namespace Kleemans\Tests\Fake;
 
 use Illuminate\Database\Eloquent\Model;
 use Kleemans\AttributeEvents;
