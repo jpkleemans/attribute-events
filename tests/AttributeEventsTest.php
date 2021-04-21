@@ -1,6 +1,6 @@
 <?php
 
-namespace Kleemans\Test;
+namespace Kleemans\Tests;
 
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model;
