@@ -9,4 +9,4 @@ install:
   - composer install
 
 script:
-  - composer run test
+  - composer run tests
