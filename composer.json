@@ -35,7 +35,8 @@
     "phpunit/phpunit": "^9.0",
     "illuminate/database": "^8.0",
     "illuminate/events": "^8.0",
-    "friendsofphp/php-cs-fixer": "^2.0"
+    "friendsofphp/php-cs-fixer": "^2.0",
+    "psr/cache": "^2.0"
   },
   "scripts": {
     "tests": "phpunit ./tests",
