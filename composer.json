@@ -28,6 +28,9 @@
       "Kleemans\\Tests\\": "tests/"
     }
   },
+  "require": {
+    "php": "^7.3|^8.0"
+  },
   "require-dev": {
     "phpunit/phpunit": "^9.0",
     "illuminate/database": "^8.0",
