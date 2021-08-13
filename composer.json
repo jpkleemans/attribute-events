@@ -39,6 +39,6 @@
   },
   "scripts": {
     "tests": "phpunit ./tests",
-    "lint": "php-cs-fixer fix --using-cache=no"
+    "lint": "php-cs-fixer fix"
   }
 }

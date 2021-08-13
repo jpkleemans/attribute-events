@@ -1,11 +1,8 @@
-name: Check and fix styling with php_cs fixer
+name: Check and fix styling with PHP CS Fixer
 
 on:
-  pull_request:
-  push:
-    branches:
-      - master
-      - development
+  - push
+  - pull_request
 
 jobs:
   style:
@@ -19,10 +16,8 @@ jobs:
 
       - name: Run php-cs-fixer
         uses: docker://oskarstark/php-cs-fixer-ga
-        with:
-          args: --config=.php_cs --allow-risky=yes --using-cache=no
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4.10.0
         with:
-          commit_message: Automatically applied php cs fixer changes
+          commit_message: Automatically applied PHP CS Fixer changes
