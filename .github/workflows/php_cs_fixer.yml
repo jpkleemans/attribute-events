@@ -1,4 +1,4 @@
-name: Check and fix styling with PHP CS Fixer
+name: PHP CS Fixer
 
 on:
   - push
