@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://attribute.events/">
-    <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg#gh-light-mode-only" alt="Laravel Attribute Events">
-    <img src="https://github.com/jpkleemans/attribute-events/blob/gh-pages/attribute-events-dark.svg#gh-dark-mode-only" alt="Laravel Attribute Events">
+    ![Laravel Attribute Events](https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg#gh-light-mode-only)
+    ![Laravel Attribute Events](https://github.com/jpkleemans/attribute-events/blob/gh-pages/attribute-events-dark.svg#gh-dark-mode-only)
   </a>
 </p>
 
