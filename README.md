@@ -1,11 +1,8 @@
-<p align="center">
-  <a href="https://attribute.events/">
-    <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg" alt="Laravel Attribute Events">
-  </a>
-</p>
+![Laravel Attribute Events](/attribute-events.svg#gh-light-mode-only)
+![Laravel Attribute Events](/attribute-events-dark.svg#gh-dark-mode-only)
 
 <p align="center">
-  <a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
+  <a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/com/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
   <a href="https://github.com/jpkleemans/attribute-events/commits" target="_blank"><img src="https://img.shields.io/github/last-commit/jpkleemans/attribute-events?label=updated&style=flat-square" alt="Last Updated"></a>
   <a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/v/jpkleemans/attribute-events?label=stable&style=flat-square" alt="Latest Stable Version"></a>
   <a href="https://packagist.org/packages/jpkleemans/attribute-events"><img src="https://img.shields.io/packagist/l/jpkleemans/attribute-events?style=flat-square" alt="License"></a>
@@ -81,8 +78,6 @@ For more complex state changes, you can use attributes defined by an <a href="ht
 ```php
 class Product extends Model
 {
-    use AttributeEvents;
-
     protected $dispatchesEvents = [
         'low_stock:true' => ProductReachedLowStock::class,
     ];
