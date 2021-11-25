@@ -1,6 +1,7 @@
 <p align="center">
   <a href="https://attribute.events/">
-    <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg" alt="Laravel Attribute Events">
+    <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg#gh-light-mode-only" alt="Laravel Attribute Events">
+    <img src="https://github.com/jpkleemans/attribute-events/blob/gh-pages/attribute-events-dark.svg#gh-dark-mode-only" alt="Laravel Attribute Events">
   </a>
 </p>
 
@@ -81,8 +82,6 @@ For more complex state changes, you can use attributes defined by an <a href="ht
 ```php
 class Product extends Model
 {
-    use AttributeEvents;
-
     protected $dispatchesEvents = [
         'low_stock:true' => ProductReachedLowStock::class,
     ];
