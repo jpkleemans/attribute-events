@@ -1,7 +1,5 @@
-<p align="center">
-  ![Laravel Attribute Events](https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg#gh-light-mode-only)
-  ![Laravel Attribute Events](https://github.com/jpkleemans/attribute-events/blob/gh-pages/attribute-events-dark.svg#gh-dark-mode-only)
-</p>
+![Laravel Attribute Events](https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/attribute-events.svg#gh-light-mode-only)
+![Laravel Attribute Events](https://github.com/jpkleemans/attribute-events/blob/gh-pages/attribute-events-dark.svg#gh-dark-mode-only)
 
 <p align="center">
   <a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/com/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
