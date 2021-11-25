@@ -1,5 +1,4 @@
-![Laravel Attribute Events](/attribute-events.svg#gh-light-mode-only)
-![Laravel Attribute Events](/attribute-events-dark.svg#gh-dark-mode-only)
+![Laravel Attribute Events](/attribute-events.svg)
 
 <p align="center">
   <a href="https://travis-ci.org/jpkleemans/attribute-events" target="_blank"><img src="https://img.shields.io/travis/com/jpkleemans/attribute-events?label=tests&style=flat-square" alt="Build Status"></a>
