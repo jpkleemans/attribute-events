@@ -26,7 +26,7 @@ trait AttributeEvents
 
     private function fireAttributeEvents(): void
     {
-        foreach ($this->getAttributeEvents()  as $change => $event) {
+        foreach ($this->getAttributeEvents() as $change => $event) {
             [$attribute, $expected] = explode(':', $change);
 
             $value = $this->getAttribute($attribute);
