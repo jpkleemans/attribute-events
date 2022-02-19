@@ -130,6 +130,7 @@ trait AttributeEvents
             return true;
         }
 
+        // Check if `hasAttributeGetMutator` exists to maintain compatibility with versions before Laravel 9.
         if (method_exists($this, 'hasAttributeGetMutator') && $this->hasAttributeGetMutator($attribute)) {
             return true;
         }
