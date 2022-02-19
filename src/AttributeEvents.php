@@ -32,7 +32,7 @@ trait AttributeEvents
             $value = $this->getAttribute($attribute);
 
             // Accessor
-            if ($this->hasGetMutator($attribute) || $this->hasAttributeGetMutator($attribute)) {
+            if ($this->hasAccessor($attribute)) {
                 if (!$this->isDirtyAccessor($attribute)) {
                     continue; // Not changed
                 }
@@ -73,7 +73,7 @@ trait AttributeEvents
         foreach ($this->getAttributeEvents() as $change => $event) {
             [$attribute] = explode(':', $change);
 
-            if (!$this->hasGetMutator($attribute) && !$this->hasAttributeGetMutator($attribute)) {
+            if (!$this->hasAccessor($attribute)) {
                 continue; // Attribute does not have accessor
             }
 
@@ -122,5 +122,18 @@ trait AttributeEvents
 
             yield $change => $event;
         }
+    }
+
+    private function hasAccessor(string $attribute): bool
+    {
+        if ($this->hasGetMutator($attribute)) {
+            return true;
+        }
+
+        if (method_exists($this, 'hasAttributeGetMutator') && $this->hasAttributeGetMutator($attribute)) {
+            return true;
+        }
+
+        return false;
     }
 }
