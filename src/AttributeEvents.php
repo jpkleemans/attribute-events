@@ -61,7 +61,7 @@ trait AttributeEvents
                 || $expected === 'false' && $value === false
                 || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
                 || is_numeric($expected) && $value === (int) $expected // int
-                || $value === $expected
+                || (string) $value === $expected
             ) {
                 $this->fireModelEvent($change, false);
             }

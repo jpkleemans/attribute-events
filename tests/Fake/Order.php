@@ -12,6 +12,7 @@ class Order extends Model
     protected $attributes = [
         'status' => 'processing',
         'shipping_address' => '',
+        'billing_address' => '',
         'note' => '',
         'total' => 0.00,
         'paid_amount' => 0.00,
@@ -29,6 +30,7 @@ class Order extends Model
         'discount_percentage' => 'integer',
         'tax_free' => 'boolean',
         'meta' => 'array',
+        'billing_address' => Address::class,
     ];
 
     protected $dispatchesEvents = [
@@ -44,6 +46,7 @@ class Order extends Model
         'paid_amount:2.99' => Events\OrderPaidHandlingFee::class,
         'tax_free:true' => Events\OrderTaxCleared::class,
         'shipping_country:*' => Events\OrderShippingCountryChanged::class,
+        'billing_address:1600 Pennsylvania Avenue, Washington D.C.' => Events\OrderForPresident::class,
         'is_paid:true' => Events\OrderPaid::class,
         'payment_gateway:cash' => Events\OrderPaidWithCash::class,
         'meta:*' => Events\OrderMetaUpdated::class,
