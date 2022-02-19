@@ -18,16 +18,17 @@ class Address implements Castable
 
     public function __toString()
     {
-        return $this->street . ', ' . $this->city;
+        return $this->street.', '.$this->city;
     }
 
     public static function castUsing(array $arguments)
     {
-        return new class() implements CastsAttributes
-        {
+        return new class() implements CastsAttributes {
             public function get($model, $key, $value, $attributes)
             {
-                if (!$value) return;
+                if (!$value) {
+                    return;
+                }
 
                 [$street, $city] = explode(', ', $value);
 
