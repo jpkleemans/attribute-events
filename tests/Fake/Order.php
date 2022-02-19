@@ -2,6 +2,7 @@
 
 namespace Kleemans\Tests\Fake;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Kleemans\AttributeEvents;
 
@@ -54,9 +55,13 @@ class Order extends Model
         'meta->invoice->downloaded:true' => Events\InvoiceDownloaded::class,
     ];
 
-    public function getShippingCountryAttribute(): string
+    protected function shippingCountry(): Attribute
     {
-        return substr($this->shipping_address, -2); // Last 2 characters of the address contain the country code.
+        return new Attribute(
+            get: function ($value, $attributes) {
+                return substr($attributes['shipping_address'], -2); // Last 2 characters of the address contain the country code.
+            }
+        );
     }
 
     public function getIsPaidAttribute(): bool
