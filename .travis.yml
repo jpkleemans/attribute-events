@@ -2,6 +2,7 @@ language: php
 
 php:
   - 8.0
+  - 8.1
 
 install:
   - composer install
