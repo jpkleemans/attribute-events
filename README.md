@@ -88,7 +88,7 @@ class Product extends Model
 }
 ```
 
-> For more info on accessors, visit the <a href="https://laravel.com/docs/eloquent-mutators#defining-an-accessor" target="_blank">Laravel Docs</a>
+> You can also use the [new way of defining accessors](https://laravel.com/docs/9.x/releases#eloquent-accessors-and-mutators) introduced in Laravel 9.
 
 ## Sponsors
 
