@@ -29,6 +29,7 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderMetaUpdated::class,
         Fake\Events\PaypalPaymentDenied::class,
         Fake\Events\InvoiceDownloaded::class,
+        Fake\Events\OrderForPresident::class,
     ];
 
     public function setUp(): void
@@ -238,6 +239,19 @@ class AttributeEventsTest extends TestCase
         });
     }
 
+    /** @test */
+    public function it_works_with_castables()
+    {
+        $order = new Fake\Order();
+        $order->billing_address = new Fake\Address('1681 Broadway', 'New York');
+        $order->save();
+
+        $order->billing_address = new Fake\Address('1600 Pennsylvania Avenue', 'Washington D.C.');
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\OrderForPresident::class);
+    }
+
     // Accessors
 
     /** @test */
@@ -407,6 +421,7 @@ class AttributeEventsTest extends TestCase
             $table->increments('id');
             $table->string('status');
             $table->string('shipping_address');
+            $table->string('billing_address');
             $table->text('note');
             $table->decimal('total', 10, 2);
             $table->decimal('paid_amount', 10, 2);
@@ -425,6 +440,7 @@ class AttributeEventsTest extends TestCase
                 'id' => 1,
                 'status' => 'processing',
                 'shipping_address' => '',
+                'billing_address' => '',
                 'note' => '',
                 'total' => 0.00,
                 'paid_amount' => 0.00,
