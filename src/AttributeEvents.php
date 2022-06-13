@@ -54,6 +54,10 @@ trait AttributeEvents
             elseif (!$this->isDirty($attribute)) {
                 continue; // Not changed
             }
+            
+            if ($value instanceof \UnitEnum) {
+                $value = $this->getEnumCastableAttributeValue($attribute, $value)->value;
+            }
 
             if (
                 $expected === '*'
