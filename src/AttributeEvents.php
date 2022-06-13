@@ -55,7 +55,7 @@ trait AttributeEvents
                 continue; // Not changed
             }
             
-            if ($value instanceof \UnitEnum) {
+            if ($value instanceof \BackedEnum) {
                 $value = $this->getEnumCastableAttributeValue($attribute, $value)->value;
             }
 
