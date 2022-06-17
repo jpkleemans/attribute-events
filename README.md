@@ -98,6 +98,7 @@ class Product extends Model
 </a>
 
 Thanks to <a href="https://www.nexxtmove.nl/" target="_blank">Nexxtmove</a> for sponsoring the development of this project.
+Your logo or name here? [Sponsor this project](https://github.com/sponsors/jpkleemans).
 
 ## License
 
