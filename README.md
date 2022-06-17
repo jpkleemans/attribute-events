@@ -96,7 +96,8 @@ class Product extends Model
   <img src="https://raw.githubusercontent.com/jpkleemans/attribute-events/gh-pages/nexxtmove-logo.svg" alt="Nexxtmove Logo" width="200">
 </a>
 
-Thanks to <a href="https://www.nexxtmove.nl/" target="_blank">Nexxtmove</a> for sponsoring the development of this project.
+Thanks to <a href="https://www.nexxtmove.nl/" target="_blank">Nexxtmove</a> for sponsoring the development of this project.  
+Your logo or name here? [Sponsor this project](https://github.com/sponsors/jpkleemans).
 
 ## License
 
