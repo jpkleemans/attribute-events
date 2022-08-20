@@ -4,6 +4,7 @@ namespace Kleemans;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Kleemans\Tests\Fake\OrderStatus;
 
 trait AttributeEvents
 {
@@ -28,35 +29,31 @@ trait AttributeEvents
     {
         foreach ($this->getAttributeEvents() as $change => $event) {
             [$attribute, $expected] = explode(':', $change);
-
             $value = $this->getAttribute($attribute);
 
             // Accessor
             if ($this->hasAccessor($attribute)) {
-                if (!$this->isDirtyAccessor($attribute)) {
+                if (! $this->isDirtyAccessor($attribute)) {
                     continue; // Not changed
                 }
-            }
-
-            // JSON attribute
+            } // JSON attribute
             elseif (Str::contains($attribute, '->')) {
                 [$attribute, $path] = explode('->', $attribute, 2);
                 $path = str_replace('->', '.', $path);
 
-                if (!$this->isDirtyNested($attribute, $path)) {
+                if (! $this->isDirtyNested($attribute, $path)) {
                     continue; // Not changed
                 }
 
                 $value = Arr::get($this->getAttribute($attribute), $path);
-            }
-
-            // Regular attribute
-            elseif (!$this->isDirty($attribute)) {
+            } // Regular attribute
+            elseif (! $this->isDirty($attribute)) {
                 continue; // Not changed
             }
 
             if (
                 $expected === '*'
+                || $value instanceof \UnitEnum && ($value->name === $expected)
                 || $expected === 'true' && $value === true
                 || $expected === 'false' && $value === false
                 || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
@@ -73,7 +70,7 @@ trait AttributeEvents
         foreach ($this->getAttributeEvents() as $change => $event) {
             [$attribute] = explode(':', $change);
 
-            if (!$this->hasAccessor($attribute)) {
+            if (! $this->hasAccessor($attribute)) {
                 continue; // Attribute does not have accessor
             }
 
@@ -88,7 +85,7 @@ trait AttributeEvents
 
     public function isDirtyAccessor(string $attribute): bool
     {
-        if (!isset($this->originalAccessors[$attribute])) {
+        if (! isset($this->originalAccessors[$attribute])) {
             return false; // Attribute does not have a original value saved
         }
 
@@ -116,7 +113,7 @@ trait AttributeEvents
     private function getAttributeEvents(): iterable
     {
         foreach ($this->dispatchesEvents as $change => $event) {
-            if (!Str::contains($change, ':')) {
+            if (! Str::contains($change, ':')) {
                 continue; // Not an attribute event
             }
 

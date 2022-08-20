@@ -6,6 +6,7 @@ use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Testing\Fakes\EventFake;
+use Kleemans\Tests\Fake\OrderStatus;
 use PHPUnit\Framework\TestCase;
 
 class AttributeEventsTest extends TestCase
@@ -18,6 +19,7 @@ class AttributeEventsTest extends TestCase
         Fake\Events\OrderDeleted::class,
         Fake\Events\OrderNoteUpdated::class,
         Fake\Events\OrderShipped::class,
+        Fake\Events\EnumOrderShipped::class,
         Fake\Events\OrderCanceled::class,
         Fake\Events\OrderReturned::class,
         Fake\Events\OrderMadeFree::class,
@@ -389,6 +391,19 @@ class AttributeEventsTest extends TestCase
 
         $this->dispatcher->assertDispatched(Fake\Events\OrderMetaUpdated::class);
         $this->dispatcher->assertDispatched(Fake\Events\InvoiceDownloaded::class);
+    }
+
+    /** @test */
+    public function it_works_with_enumerated_casts()
+    {
+        $order = new Fake\EnumOrder();
+        $order->status = OrderStatus::PROCESSING;
+        $order->save();
+
+        $order->status = OrderStatus::SHIPPED;
+        $order->save();
+
+        $this->dispatcher->assertDispatched(Fake\Events\EnumOrderShipped::class);
     }
 
     // Setup methods
