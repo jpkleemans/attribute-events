@@ -52,7 +52,7 @@ trait AttributeEvents
 
             if (
                 $expected === '*'
-                || $value instanceof \UnitEnum && ($value->name === $expected)
+                || $value instanceof \BackedEnum && ($value->name === $expected)
                 || $expected === 'true' && $value === true
                 || $expected === 'false' && $value === false
                 || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
