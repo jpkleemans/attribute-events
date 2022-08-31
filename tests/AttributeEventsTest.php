@@ -400,6 +400,7 @@ class AttributeEventsTest extends TestCase
         $order->status_enum = OrderStatus::PROCESSING;
         $order->save();
 
+        $order = Fake\Order::find($order->id);
         $order->status_enum = OrderStatus::SHIPPED;
         $order->save();
 
