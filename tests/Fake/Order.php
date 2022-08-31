@@ -12,6 +12,7 @@ class Order extends Model
 
     protected $attributes = [
         'status' => 'processing',
+        'status_enum' => OrderStatus::PROCESSING,
         'shipping_address' => '',
         'billing_address' => '',
         'note' => '',
@@ -26,6 +27,7 @@ class Order extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'status_enum' => OrderStatus::class,
         'total' => 'float',
         'paid_amount' => 'float',
         'discount_percentage' => 'integer',
@@ -42,6 +44,7 @@ class Order extends Model
         'status:shipped' => Events\OrderShipped::class,
         'status:canceled' => Events\OrderCanceled::class,
         'status:returned' => Events\OrderReturned::class,
+        'status_enum:SHIPPED' => Events\EnumOrderShipped::class,
         'non_existing:should_do_nothing' => Events\OrderUpdated::class,
         'discount_percentage:100' => Events\OrderMadeFree::class,
         'paid_amount:2.99' => Events\OrderPaidHandlingFee::class,

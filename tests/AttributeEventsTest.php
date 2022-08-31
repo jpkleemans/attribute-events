@@ -396,11 +396,11 @@ class AttributeEventsTest extends TestCase
     /** @test */
     public function it_works_with_enumerated_casts()
     {
-        $order = new Fake\EnumOrder();
-        $order->status = OrderStatus::PROCESSING;
+        $order = new Fake\Order();
+        $order->status_enum = OrderStatus::PROCESSING;
         $order->save();
 
-        $order->status = OrderStatus::SHIPPED;
+        $order->status_enum = OrderStatus::SHIPPED;
         $order->save();
 
         $this->dispatcher->assertDispatched(Fake\Events\EnumOrderShipped::class);
@@ -435,6 +435,7 @@ class AttributeEventsTest extends TestCase
         DB::schema()->create('orders', function ($table) {
             $table->increments('id');
             $table->string('status');
+            $table->integer('status_enum');
             $table->string('shipping_address');
             $table->string('billing_address');
             $table->text('note');
@@ -454,6 +455,7 @@ class AttributeEventsTest extends TestCase
             [
                 'id' => 1,
                 'status' => 'processing',
+                'status_enum' => 1,
                 'shipping_address' => '',
                 'billing_address' => '',
                 'note' => '',
