@@ -35,7 +35,9 @@ trait AttributeEvents
                 if (!$this->isDirtyAccessor($attribute)) {
                     continue; // Not changed
                 }
-            } // JSON attribute
+            }
+
+            // JSON attribute
             elseif (Str::contains($attribute, '->')) {
                 [$attribute, $path] = explode('->', $attribute, 2);
                 $path = str_replace('->', '.', $path);
@@ -45,7 +47,9 @@ trait AttributeEvents
                 }
 
                 $value = Arr::get($this->getAttribute($attribute), $path);
-            } // Regular attribute
+            }
+
+            // Regular attribute
             elseif (!$this->isDirty($attribute)) {
                 continue; // Not changed
             }
