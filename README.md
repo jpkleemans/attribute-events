@@ -90,6 +90,10 @@ class Product extends Model
 
 > You can also use the [new way of defining accessors](https://laravel.com/docs/9.x/releases#eloquent-accessors-and-mutators) introduced in Laravel 9.
 
+## Learn more
+- [“Decouple your Laravel code using Attribute Events”](https://jpkleemans.medium.com/decouple-your-laravel-code-using-attribute-events-de8f2528f46a) by Jan-Paul Kleemans
+- [Laravel Docs on Model Events](https://laravel.com/docs/eloquent#events)
+
 ## Sponsors
 
 <a href="https://www.nexxtmove.nl/" target="_blank">
