@@ -53,10 +53,13 @@ trait AttributeEvents
             elseif (!$this->isDirty($attribute)) {
                 continue; // Not changed
             }
-
+            
+            if ($value instanceof \UnitEnum) {
+                $value = $this->getEnumCastableAttributeValue($attribute, $value)->value;
+            }
+            
             if (
                 $expected === '*'
-                || $value instanceof \UnitEnum && ($value->name === $expected)
                 || $expected === 'true' && $value === true
                 || $expected === 'false' && $value === false
                 || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
