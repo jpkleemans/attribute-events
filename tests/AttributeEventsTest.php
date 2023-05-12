@@ -397,10 +397,11 @@ class AttributeEventsTest extends TestCase
     public function it_works_with_enumerated_casts()
     {
         $order = new Fake\Order();
+        $order->save();
+
         $order->status_enum = OrderStatus::PROCESSING;
         $order->save();
 
-        $order = Fake\Order::find($order->id);
         $order->status_enum = OrderStatus::SHIPPED;
         $order->save();
 
