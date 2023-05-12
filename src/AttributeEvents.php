@@ -60,10 +60,10 @@ trait AttributeEvents
             
             if (
                 $expected === '*'
-                || $expected === 'true' && $value === true
-                || $expected === 'false' && $value === false
-                || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
-                || is_numeric($expected) && $value === (int) $expected // int
+                || ($expected === 'true' && $value === true)
+                || ($expected === 'false' && $value === false)
+                || (is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected) // float
+                || (is_numeric($expected) && $value === (int) $expected) // int
                 || (string) $value === $expected
             ) {
                 $this->fireModelEvent($change, false);
