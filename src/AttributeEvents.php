@@ -54,18 +54,27 @@ trait AttributeEvents
                 continue; // Not changed
             }
 
-            if (
-                $expected === '*'
-                || $value instanceof \UnitEnum && ($value->name === $expected)
-                || $expected === 'true' && $value === true
-                || $expected === 'false' && $value === false
-                || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
-                || is_numeric($expected) && $value === (int) $expected // int
-                || (string) $value === $expected
-            ) {
+            if ($this->shouldFireEvent($value, $expected)) {
                 $this->fireModelEvent($change, false);
             }
         }
+    }
+
+    private function shouldFireEvent($value, $expected): bool
+    {
+        if ($expected === '*') {
+            return true;
+        }
+
+        if ($value instanceof \UnitEnum) {
+            return $value->name === $expected;
+        }
+
+        return $expected === 'true' && $value === true
+            || $expected === 'false' && $value === false
+            || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
+            || is_numeric($expected) && $value === (int) $expected // int
+            || (string) $value === $expected;
     }
 
     private function syncOriginalAccessors(): void
