@@ -61,7 +61,7 @@ trait AttributeEvents
                 || $expected === 'false' && $value === false
                 || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
                 || is_numeric($expected) && $value === (int) $expected // int
-                || (string) $value === $expected
+                || $this->canBeCastedToString($value) && (string) $value === $expected
             ) {
                 $this->fireModelEvent($change, false);
             }
@@ -136,5 +136,17 @@ trait AttributeEvents
         }
 
         return false;
+    }
+
+    private function canBeCastedToString($value): bool
+    {
+        if ($value instanceof \UnitEnum) {
+            return false;
+        }
+
+        return is_scalar($value)
+            || is_null($value)
+            || is_array($value)
+            || is_object($value) && method_exists($value, '__toString');
     }
 }
