@@ -407,6 +407,20 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\EnumOrderShipped::class);
     }
 
+    /** @test */
+    public function it_ignores_non_matching_enums()
+    {
+        $order = new Fake\Order();
+        $order->status_enum = OrderStatus::PROCESSING;
+        $order->save();
+
+        $order = Fake\Order::find($order->id);
+        $order->status_enum = OrderStatus::CANCELLED;
+        $order->save();
+
+        $this->dispatcher->assertNotDispatched(Fake\Events\EnumOrderShipped::class);
+    }
+
     // Setup methods
 
     private function initEventDispatcher()

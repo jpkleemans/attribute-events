@@ -54,18 +54,41 @@ trait AttributeEvents
                 continue; // Not changed
             }
 
-            if (
-                $expected === '*'
-                || $value instanceof \UnitEnum && ($value->name === $expected)
-                || $expected === 'true' && $value === true
-                || $expected === 'false' && $value === false
-                || is_numeric($expected) && Str::contains($expected, '.') && $value === (float) $expected // float
-                || is_numeric($expected) && $value === (int) $expected // int
-                || $this->canBeCastedToString($value) && (string) $value === $expected
-            ) {
+            if ($this->shouldFireAttributeEvent($value, $expected)) {
                 $this->fireModelEvent($change, false);
             }
         }
+    }
+
+    private function shouldFireAttributeEvent($value, $expected)
+    {
+        if ($expected === '*') {
+            return true;
+        }
+
+        if ($value instanceof \UnitEnum) {
+            return $value->name === $expected;
+        }
+
+        if ($expected === 'true') {
+            return $value === true;
+        }
+
+        if ($expected === 'false') {
+            return $value === false;
+        }
+
+        // Float
+        if (is_numeric($expected) && Str::contains($expected, '.')) {
+            return $value === (float) $expected;
+        }
+
+        // Int
+        if (is_numeric($expected)) {
+            return $value === (int) $expected;
+        }
+
+        return (string) $value === $expected;
     }
 
     private function syncOriginalAccessors(): void
@@ -136,17 +159,5 @@ trait AttributeEvents
         }
 
         return false;
-    }
-
-    private function canBeCastedToString($value): bool
-    {
-        if ($value instanceof \UnitEnum) {
-            return false;
-        }
-
-        return is_scalar($value)
-            || is_null($value)
-            || is_array($value)
-            || is_object($value) && method_exists($value, '__toString');
     }
 }
