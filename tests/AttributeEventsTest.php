@@ -394,6 +394,22 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertNotDispatched(Fake\Events\EnumOrderShipped::class);
     }
 
+    public function test_it_allows_previous_values_to_be_read()
+    {
+        $order = new Fake\Order();
+        $order->note = 'Please handle with care';
+        $order->save();
+
+        $order = Fake\Order::find($order->id);
+        $order->note = 'Please deliver to neighbour';
+        $order->save();
+
+        $this->dispatcher->assertDispatched(function (Fake\Events\OrderNoteUpdated $event) {
+            return $event->oldValue === 'Please handle with care'
+                && $event->newValue === 'Please deliver to neighbour';
+        });
+    }
+
     // Setup methods
 
     private function initEventDispatcher()
