@@ -40,8 +40,7 @@ class AttributeEventsTest extends TestCase
         $this->initDatabase();
     }
 
-    /** @test */
-    public function it_still_dispatches_native_events(): void
+    public function test_it_still_dispatches_native_events(): void
     {
         // Create
         $order = new Fake\Order();
@@ -61,8 +60,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderDeleted::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change()
+    public function test_it_dispatches_event_on_change()
     {
         $order = new Fake\Order();
         $order->save();
@@ -73,8 +71,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change_after_find()
+    public function test_it_dispatches_event_on_change_after_find()
     {
         $order = Fake\Order::find(1);
         $order->note = 'Please deliver to neighbour';
@@ -83,8 +80,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderNoteUpdated::class);
     }
 
-    /** @test */
-    public function it_dispatches_multiple_events()
+    public function test_it_dispatches_multiple_events()
     {
         $order = new Fake\Order();
         $order->save();
@@ -99,8 +95,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderTaxCleared::class);
     }
 
-    /** @test */
-    public function it_works_with_update_method()
+    public function test_it_works_with_update_method()
     {
         $order = Fake\Order::find(1);
         $order->update([
@@ -112,8 +107,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderCanceled::class);
     }
 
-    /** @test */
-    public function it_does_not_dispatch_on_initial_value_of_attribute()
+    public function test_it_does_not_dispatch_on_initial_value_of_attribute()
     {
         $order = new Fake\Order();
         $order->note = 'Please handle with care';
@@ -122,8 +116,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
     }
 
-    /** @test */
-    public function it_does_not_dispatch_when_same_value()
+    public function test_it_does_not_dispatch_when_same_value()
     {
         $order = new Fake\Order();
         $order->note = 'Please handle with care';
@@ -135,8 +128,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
     }
 
-    /** @test */
-    public function it_does_not_dispatch_on_change_of_other_attribute()
+    public function test_it_does_not_dispatch_on_change_of_other_attribute()
     {
         $order = new Fake\Order();
         $order->note = 'Please handle with care';
@@ -148,8 +140,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertNotDispatched(Fake\Events\OrderNoteUpdated::class);
     }
 
-    /** @test */
-    public function it_does_not_dispatch_on_initial_save_of_replication()
+    public function test_it_does_not_dispatch_on_initial_save_of_replication()
     {
         $order = Fake\Order::find(1);
 
@@ -160,8 +151,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertNotDispatched(Fake\Events\OrderCanceled::class);
     }
 
-    /** @test */
-    public function it_dispatches_correct_number_of_times()
+    public function test_it_dispatches_correct_number_of_times()
     {
         $order = new Fake\Order();
         $order->note = 'Initial value';
@@ -181,8 +171,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatchedTimes(Fake\Events\OrderPlaced::class, 1);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change_to_specific_string_value()
+    public function test_it_dispatches_event_on_change_to_specific_string_value()
     {
         $order = new Fake\Order();
         $order->save();
@@ -193,8 +182,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderShipped::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change_to_specific_int_value()
+    public function test_it_dispatches_event_on_change_to_specific_int_value()
     {
         $order = new Fake\Order();
         $order->save();
@@ -205,8 +193,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderMadeFree::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change_to_specific_float_value()
+    public function test_it_dispatches_event_on_change_to_specific_float_value()
     {
         $order = new Fake\Order();
         $order->save();
@@ -217,8 +204,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderPaidHandlingFee::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change_to_specific_boolean_value()
+    public function test_it_dispatches_event_on_change_to_specific_boolean_value()
     {
         $order = new Fake\Order();
         $order->save();
@@ -229,8 +215,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderTaxCleared::class);
     }
 
-    /** @test */
-    public function it_respects_withoutEvents()
+    public function test_it_respects_withoutEvents()
     {
         Fake\Order::withoutEvents(function () {
             $order = Fake\Order::find(1);
@@ -241,8 +226,7 @@ class AttributeEventsTest extends TestCase
         });
     }
 
-    /** @test */
-    public function it_works_with_castables()
+    public function test_it_works_with_castables()
     {
         $order = new Fake\Order();
         $order->billing_address = new Fake\Address('1681 Broadway', 'New York');
@@ -256,8 +240,7 @@ class AttributeEventsTest extends TestCase
 
     // Accessors
 
-    /** @test */
-    public function it_dispatches_event_on_accessor_change()
+    public function test_it_dispatches_event_on_accessor_change()
     {
         $order = new Fake\Order();
         $order->shipping_address = '4073 Hamill Avenue US';
@@ -275,8 +258,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderShippingCountryChanged::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_accessor_change_to_specific_value()
+    public function test_it_dispatches_event_on_accessor_change_to_specific_value()
     {
         $order = new Fake\Order();
         $order->total = 10;
@@ -293,8 +275,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderPaid::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_on_change_of_accessor_for_existing_attribute()
+    public function test_it_dispatches_event_on_change_of_accessor_for_existing_attribute()
     {
         $order = Fake\Order::find(1);
         $order->payment_gateway = 'direct';
@@ -305,8 +286,7 @@ class AttributeEventsTest extends TestCase
 
     // JSON attributes
 
-    /** @test */
-    public function it_dispatches_event_when_updating_json_attribute()
+    public function test_it_dispatches_event_when_updating_json_attribute()
     {
         $order = new Fake\Order();
         $order->meta = ['gift_wrapping' => true];
@@ -318,8 +298,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\OrderMetaUpdated::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_when_updating_json_field()
+    public function test_it_dispatches_event_when_updating_json_field()
     {
         $order = new Fake\Order();
         $order->meta = ['paypal_status' => 'pending'];
@@ -334,8 +313,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\PaypalPaymentDenied::class);
     }
 
-    /** @test */
-    public function it_works_with_json_changes_through_update_method()
+    public function test_it_works_with_json_changes_through_update_method()
     {
         $order = new Fake\Order();
         $order->meta = ['paypal_status' => 'pending'];
@@ -346,8 +324,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\PaypalPaymentDenied::class);
     }
 
-    /** @test */
-    public function it_dispatches_event_when_adding_json_field()
+    public function test_it_dispatches_event_when_adding_json_field()
     {
         $order = new Fake\Order();
         $order->meta = ['gift_wrapping' => true];
@@ -362,8 +339,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\PaypalPaymentDenied::class);
     }
 
-    /** @test */
-    public function it_does_not_dispatch_on_initial_value_of_json_attribute()
+    public function test_it_does_not_dispatch_on_initial_value_of_json_attribute()
     {
         $order = new Fake\Order();
         $order->meta = [
@@ -376,8 +352,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertNotDispatched(Fake\Events\PaypalPaymentDenied::class);
     }
 
-    /** @test */
-    public function it_works_with_nested_json_fields()
+    public function test_it_works_with_nested_json_fields()
     {
         $order = new Fake\Order();
         $order->meta = ['invoice' => ['downloaded' => false]];
@@ -393,8 +368,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\InvoiceDownloaded::class);
     }
 
-    /** @test */
-    public function it_works_with_enumerated_casts()
+    public function test_it_works_with_enumerated_casts()
     {
         $order = new Fake\Order();
         $order->status_enum = OrderStatus::PROCESSING;
@@ -407,8 +381,7 @@ class AttributeEventsTest extends TestCase
         $this->dispatcher->assertDispatched(Fake\Events\EnumOrderShipped::class);
     }
 
-    /** @test */
-    public function it_ignores_non_matching_enums()
+    public function test_it_ignores_non_matching_enums()
     {
         $order = new Fake\Order();
         $order->status_enum = OrderStatus::PROCESSING;
