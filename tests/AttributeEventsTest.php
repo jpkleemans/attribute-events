@@ -38,6 +38,8 @@ class AttributeEventsTest extends TestCase
     {
         $this->initEventDispatcher();
         $this->initDatabase();
+
+        Model::shouldBeStrict();
     }
 
     public function test_it_still_dispatches_native_events(): void

@@ -2,6 +2,7 @@
 
 namespace Kleemans;
 
+use Illuminate\Database\Eloquent\MissingAttributeException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -28,7 +29,12 @@ trait AttributeEvents
     {
         foreach ($this->getAttributeEvents() as $change => $event) {
             [$attribute, $expected] = explode(':', $change);
-            $value = $this->getAttribute($attribute);
+
+            try {
+                $value = $this->getAttribute($attribute);
+            } catch (MissingAttributeException) {
+                continue;
+            }
 
             // Accessor
             if ($this->hasAccessor($attribute)) {
@@ -46,7 +52,11 @@ trait AttributeEvents
                     continue; // Not changed
                 }
 
-                $value = Arr::get($this->getAttribute($attribute), $path);
+                try {
+                    $value = Arr::get($this->getAttribute($attribute), $path);
+                } catch (MissingAttributeException) {
+                    continue;
+                }
             }
 
             // Regular attribute
@@ -100,7 +110,12 @@ trait AttributeEvents
                 continue; // Attribute does not have accessor
             }
 
-            $value = $this->getAttribute($attribute);
+            try {
+                $value = $this->getAttribute($attribute);
+            } catch (MissingAttributeException) {
+                continue;
+            }
+
             if ($value === null) {
                 continue; // Attribute does not exist
             }
@@ -116,7 +131,12 @@ trait AttributeEvents
         }
 
         $originalValue = $this->originalAccessors[$attribute];
-        $currentValue = $this->getAttribute($attribute);
+
+        try {
+            $currentValue = $this->getAttribute($attribute);
+        } catch (MissingAttributeException) {
+            return false;
+        }
 
         return $originalValue !== $currentValue;
     }
@@ -124,7 +144,12 @@ trait AttributeEvents
     public function isDirtyNested(string $attribute, string $path): bool
     {
         $originalValue = Arr::get($this->getOriginal($attribute), $path);
-        $currentValue = Arr::get($this->getAttribute($attribute), $path);
+
+        try {
+            $currentValue = Arr::get($this->getAttribute($attribute), $path);
+        } catch (MissingAttributeException) {
+            return false;
+        }
 
         if ($currentValue === null) {
             return false;
