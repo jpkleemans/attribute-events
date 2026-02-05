@@ -32,10 +32,10 @@
     "php": "^7.3|^8.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^11.5",
-    "illuminate/events": "^11.44",
-    "illuminate/database": "^11.44",
-    "friendsofphp/php-cs-fixer": "^3.75"
+    "phpunit/phpunit": "^12.0",
+    "illuminate/events": "^12.0",
+    "illuminate/database": "^12.0",
+    "friendsofphp/php-cs-fixer": "^3.0"
   },
   "scripts": {
     "tests": "phpunit ./tests",
